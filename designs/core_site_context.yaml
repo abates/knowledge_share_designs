@@ -1,0 +1,2 @@
+core_1_loopback_offset: "0.0.0.1/32"
+core_2_loopback_offset: "0.0.1.1/32"

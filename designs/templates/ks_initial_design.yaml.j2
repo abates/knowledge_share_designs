@@ -1,46 +1,46 @@
 ---
-
 manufacturers:
-  - name: "Juniper"
+  - "!create_or_update:name": "Juniper"
     slug: "juniper"
 
 device_types:
-  - model: "PTX10004"
-    slug: "ptx10004"
+  - "!create_or_update:model": "PTX10016"
+    slug: "ptx10016"
     manufacturer__slug: "juniper"
+    u_height: 21
 
 device_roles:
-  - name: "Core Router"
+  - "!create_or_update:name": "Core Router"
     slug: "core_router"
     color: "3f51b5"
 
 regions:
-    name: "Americas"
+    "!create_or_update:name": "Americas"
     children:
-    - name: "United States"
+    - "!create_or_update:name": "United States"
       children:
-      - name: "US-East-1"
+      - "!create_or_update:name": "US-East-1"
         sites:
-        - name: "IAD5"
+        - "!create_or_update:name": "IAD5"
           status__name: "Active"
           "!ref": "iad5"
-        - name: "lga1"
+        - "!create_or_update:name": "LGA1"
           status__name: "Active"
           "!ref": "lga1"
 
-      - name: "US-West-1"
+      - "!create_or_update:name": "US-West-1"
         sites:
-        - name: "LAX11"
+        - "!create_or_update:name": "LAX11"
           status__name: "Active"
           "!ref": "lax11"
-        - name: "SEA1"
+        - "!create_or_update:name": "SEA1"
           status__name: "Active"
           "!ref": "sea1"
 
 {% macro device(device_name, site) -%}
-    - name: "{{ device_name }}.{{ site }}"
+    - "!create_or_update:name": "{{ device_name }}.{{ site }}"
       site: "!ref:{{ site }}"
-      device_type__slug: "ptx10004"
+      device_type__slug: "ptx10016"
       device_role__slug: "core_router"
       status__name: "Planned"
 {% endmacro %}
