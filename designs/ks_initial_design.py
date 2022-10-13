@@ -1,6 +1,6 @@
 from design_builder.design_builder import DesignJob
 
-from .context import KSInitialDesignContext
+from .ks_initial_context import KSInitialDesignContext
 
 class KSInitialDesign(DesignJob):
     class Meta:

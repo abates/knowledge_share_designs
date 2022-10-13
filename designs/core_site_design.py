@@ -3,7 +3,7 @@ from nautobot.extras.jobs import ObjectVar, StringVar, IPNetworkVar
 
 from design_builder.design_builder import DesignJob
 
-from .context import CoreSiteContext
+from .core_site_context import CoreSiteContext
 
 class CoreSiteDesign(DesignJob):
     region = ObjectVar(
