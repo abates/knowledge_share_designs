@@ -7,7 +7,7 @@ from design_builder.tests import DesignTestCase
 from ..ks_initial_design import KSInitialDesign
 
 
-class TestFabricPod(DesignTestCase):
+class TestInitialDesign(DesignTestCase):
     def test_design(self):
         job = self.get_mocked_job(KSInitialDesign)
         job.run({}, True)
