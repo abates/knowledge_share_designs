@@ -1,19 +1,20 @@
 """Unit tests for designs"""
 
+from nautobot.dcim.models import Region, Site
+
 from design_builder.tests import DesignTestCase
 
-from unittest import mock
-
-from .. import BasicDesign
+from ..ks_initial_design import KSInitialDesign
 
 
 class TestFabricPod(DesignTestCase):
     def test_design(self):
-        input = {}
+        job = self.get_mocked_job(KSInitialDesign)
+        job.run({}, True)
 
-        job = BasicDesign()
-        job.request = mock.Mock()
-        job.job_result = mock.Mock()
-        job.run(input, True)
-
-        self.assertTrue(True)
+        americas = Region.objects.get(name="Americas")
+        us = americas.children.get(name="United States")
+        for region_name in ["US-East-1", "US-West-1"]:
+            region = us.children.get(name=region_name)
+            # each region should have two sites
+            self.assertEqual(2, region.sites.count())
