@@ -1,4 +1,4 @@
-from design_builder.design_builder import DesignJob
+from design_builder.base import DesignJob
 
 from .ks_initial_context import KSInitialDesignContext
 
