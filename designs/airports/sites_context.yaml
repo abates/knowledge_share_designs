@@ -1,0 +1,38 @@
+---
+device_profiles:
+  small_site:
+    gateway:
+      device_type__slug: meraki-mx85
+      device_role__slug: gateway-router
+      uplinks: 
+      downlinks:
+    access_switch:
+      device_type__slug: 
+      device_role__slug:
+      uplinks: 
+      downlinks:
+
+design_types:
+  small-sites:
+    gateway:
+      number: 1
+      device_profile: "{{ device_profiles.small_site_gateway }}"
+
+    racks:
+      rows: 0
+      length: 0
+
+  medium-sites:
+  large-sites:
+
+site_profiles:
+  small-sites:
+    gateways:
+      count: 1
+      profile: "{{ device_profiles.small_site.gateway }}"
+    access_switches:
+      count: 2
+      profile: "{{ device_profiles.small_site.access_switch }}"
+
+  medium-sites: {}
+  large-sites: {}

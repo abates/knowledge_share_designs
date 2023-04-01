@@ -54,14 +54,14 @@ def task(function=None, *args, **kwargs):
 def nbshell(context):
     """Launch an interactive nbshell session."""
     command = "nautobot-server nbshell"
-    context.run(command)
+    context.run(command, pty=True)
 
 
 @task
 def shell_plus(context):
     """Launch an interactive shell_plus session."""
     command = "nautobot-server shell_plus"
-    context.run(command)
+    context.run(command, pty=True)
 
 
 @task(

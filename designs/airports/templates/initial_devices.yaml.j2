@@ -1,0 +1,19 @@
+---
+
+{% macro device(site, type, role, id) -%}
+    - "!create_or_update:name": "{{ site }}-{{ role }}-{{ '%03d' % id }}"
+      site__slug: "{{ site }}"
+      device_type__slug: "{{ type }}"
+      device_role__slug: "{{ role }}"
+      status__name: "Planned"
+{% endmacro %}
+
+devices:
+  {% for site in sites.values() %}
+    {% for i in range(4) %}
+    {{ device(site.slug, "dcs_7060px4-32", "spine", i) }}
+    {% endfor %}
+    {% for i in range(20) %}
+    {{ device(site.slug, "dcs_7060px4-32", "leaf", i) }}
+    {% endfor %}
+  {% endfor %}

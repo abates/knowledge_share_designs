@@ -1,0 +1,132 @@
+---
+continent_names:
+  AS: "Asia"
+  SA: "South America"
+  EU: "Europe"
+  AN: "Antarctica"
+  NA: "North America"
+  OC: "Oceania"
+  AF: "Africa"
+
+tenant_groups:
+    airports:
+      name: "Airports"
+      slug: "airports"
+      children: 
+        other-sites:
+          name: "Other Sites"
+          slug: "other-sites"
+          tenants:
+            closed:
+              name: "Closed Sites"
+              slug: "closed"
+
+        small-sites:
+          name: "Small Sites"
+          slug: "small-sites"
+          tenants:
+            balloonport:
+                name: "Balloon Port"
+                slug: "balloonport"
+
+            heliport:
+              name: "Heli Port"
+              slug: "heliport"
+
+            small-airport:
+              name: "Small Airport"
+              slug: "small-airport"
+
+            seaplane-base:
+              name: "Seaplane Base"
+              slug: "seaplane-base"
+
+        medium-sites:
+          name: "Medium Sites"
+          slug: "medium-sites"
+          tenants:
+            medium-airport:
+              name: "Medium Airport"
+              slug: "medium-airport"
+
+        large-sites:
+          name: "Large Sites"
+          slug: "large-sites"
+          tenants:
+            large-airport:
+              name: "Large Airport"
+              slug: "large-airport"
+
+manufacturers:
+  - name: "Arista"
+    slug: "arista"
+
+  - name: "Cisco/Meraki"
+    slug: "cisco-meraki"
+
+device_types:
+  - manufacturer__slug: "arista"
+    model: "DCS 7060PX4-32"
+    slug: "dcs_7060px4-32"
+
+  - manufacturer__slug: "cisco-meraki"
+    model: MX85
+    slug: "meraki-mx85"
+    part_number: MX85
+    u_height: 1
+    is_full_depth: false
+    powerporttemplates:
+      - name: Slot 1
+        type: iec-60320-c14
+        maximum_draw: 32
+        allocated_draw: 26
+    consoleporttemplates:
+      - name: Management
+        type: rj-45
+    interfacetemplates:
+      - name: USB
+        type: lte
+      - name: Internet 1
+        type: 1000base-t
+      - name: Internet 2
+        type: 1000base-t
+      - name: Port 3
+        type: 1000base-t
+      - name: Port 4
+        type: 1000base-t
+      - name: Port 5
+        type: 1000base-t
+      - name: Port 6
+        type: 1000base-t
+      - name: Port 7
+        type: 1000base-t
+      - name: Port 8
+        type: 1000base-t
+      - name: Port 9
+        type: 1000base-t
+      - name: Port 10
+        type: 1000base-t
+      - name: Port 11
+        type: 1000base-x-sfp
+      - name: Port 12
+        type: 1000base-x-sfp
+
+device_roles:
+  - name: "Gateway Router"
+    slug: "gateway-router"
+
+  - name: "Leaf Switch"
+    slug: "leaf-switch"
+    color: "3f51b5"
+
+  - name: "Spine Switch"
+    slug: "spine-switch"
+    color: "ff7900"
+
+  - name: "Access Switch"
+    slug: "access-switch"
+    color: "4caf50"
+
+  - name: "Distribution Switch"
+    slug: "distribution-switch"
+    color: "3f51b5"

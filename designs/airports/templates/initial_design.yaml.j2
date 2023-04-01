@@ -1,0 +1,72 @@
+---
+manufacturers:
+  {% for manufacturer in manufacturers %}
+  - "!create_or_update:name": "{{ manufacturer.name }}"
+    slug: "{{ manufacturer.slug }}"
+  {% endfor %}
+
+device_types:
+  {% for device_type in device_types %}
+  - "!create_or_update:slug": "{{ device_type.slug }}"
+    {%+ indent %}{{ device_type | to_yaml }}{% endindent %}
+  {% endfor %}
+
+device_roles:
+  - "!create_or_update:name": "Leaf Switch"
+    slug: "leaf-switch"
+    color: "3f51b5"
+
+  - "!create_or_update:name": "Spine Switch"
+    slug: "spine-switch"
+    color: "ff7900"
+
+  - "!create_or_update:name": "Access Switch"
+    slug: "access-switch"
+    color: "4caf50"
+
+  - "!create_or_update:name": "Distribution Switch"
+    slug: "distribution-switch"
+    color: "3f51b5"
+
+tenant_groups:
+  {% for tenant_group in tenant_groups.values() %}
+    - "!create_or_update:name": "{{ tenant_group.name }}"
+      slug: "{{ tenant_group.slug }}"
+      children:
+      {% for sub_group in tenant_group.children.values() %}
+        - "!create_or_update:name": "{{ sub_group.name }}"
+          slug: "{{ sub_group.slug }}"
+          tenants:
+          {% for tenant in sub_group.tenants.values() %}
+          - "!create_or_update:name": "{{ tenant.name }}"
+            "slug": "{{ tenant.slug }}"
+          {% endfor %}
+      {% endfor %}
+  {% endfor %}
+
+location_types:
+  - "!create_or_update:name": Building
+    slug: building
+    "!ref": "lt-building"
+  - "!create_or_update:name": Main Distribution Frame
+    slug: mdf
+    parent: "!ref:lt-building"
+  - "!create_or_update:name": Intermediate Distribution Frame
+    slug: idf
+    parent: "!ref:lt-building"
+
+regions:
+    {% for continent in continents.values() %}
+    - "!create_or_update:name": "{{ continent.name }}"
+      "slug": "{{ continent.slug }}"
+      children:
+        {% for country in continent.countries.values() %}
+        - "!create_or_update:name": "{{ country.name }}"
+          "slug": "{{ country.slug }}"
+          children:
+            {% for region in country.regions.values() %}
+            - "!create_or_update:name": "{{ region.name }}"
+              "slug": "{{ region.slug }}"
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
