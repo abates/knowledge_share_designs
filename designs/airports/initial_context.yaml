@@ -1,13 +1,4 @@
 ---
-continent_names:
-  AS: "Asia"
-  SA: "South America"
-  EU: "Europe"
-  AN: "Antarctica"
-  NA: "North America"
-  OC: "Oceania"
-  AF: "Africa"
-
 tenant_groups:
     airports:
       name: "Airports"
