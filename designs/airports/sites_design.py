@@ -6,7 +6,7 @@ from .sites_context import SitesContext
 
 
 class SitesDesign(DesignJob):
-    continent = ChoiceVar(
+    continent = ChoiceVar(choices=(
         ("continent-as", "Asia"),
         ("continent-sa", "South America"),
         ("continent-eu", "Europe"),
@@ -14,7 +14,7 @@ class SitesDesign(DesignJob):
         ("continent-na", "North America"),
         ("continent-oc", "Oceania"),
         ("continent-ac", "Africa"),
-    )
+    ))
 
     class Meta:
         name = "Sites Design"
