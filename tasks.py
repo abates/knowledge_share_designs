@@ -19,16 +19,10 @@ from distutils.util import strtobool
 from invoke import Collection
 from invoke import task as invoke_task
 
-
 # Use pyinvoke configuration for default values, see http://docs.pyinvoke.org/en/stable/concepts/configuration.html
 # Variables may be overwritten in invoke.yml or by the environment variables INVOKE_DESIGN_BUILDER_xxx
 namespace = Collection("design_builder_designs")
-namespace.configure(
-    {
-        "design_builder_designs": {
-        }
-    }
-)
+namespace.configure({"design_builder_designs": {}})
 
 
 def task(function=None, *args, **kwargs):
@@ -120,9 +114,7 @@ def flake8(context):
 @task(help={"file": "run pylint for a specific file"})
 def pylint(context, file=None):
     """Run pylint code analysis."""
-    command = (
-        'pylint --ignore-patterns="^test_" --init-hook "import nautobot; nautobot.setup()" '
-    )
+    command = 'pylint --ignore-patterns="^test_" --init-hook "import nautobot; nautobot.setup()" '
     if file is None:
         command += "designs"
     else:
@@ -179,19 +171,29 @@ def tests(context, failfast=False):
     unittest(context, failfast=failfast)
     print("All tests have passed!", file=sys.stderr)
 
+
 @task
 def log(context):
-    compose_file = os.path.join(os.path.dirname(__file__), ".devcontainer", "docker-compose.yml")
-    project_name = f"{os.path.basename(os.environ.get('LOCAL_WORKSPACE_FOLDER'))}_devcontainer"
+    compose_file = os.path.join(
+        os.path.dirname(__file__), ".devcontainer", "docker-compose.yml"
+    )
+    project_name = (
+        f"{os.path.basename(os.environ.get('LOCAL_WORKSPACE_FOLDER'))}_devcontainer"
+    )
     command = f"docker-compose -p {project_name} -f {compose_file} logs -f"
     context.run(command)
+
 
 @task
 def restart(context):
     services = ["nautobot", "worker"]
 
-    compose_file = os.path.join(os.path.dirname(__file__), ".devcontainer", "docker-compose.yml")
-    project_name = f"{os.path.basename(os.environ.get('LOCAL_WORKSPACE_FOLDER'))}_devcontainer"
+    compose_file = os.path.join(
+        os.path.dirname(__file__), ".devcontainer", "docker-compose.yml"
+    )
+    project_name = (
+        f"{os.path.basename(os.environ.get('LOCAL_WORKSPACE_FOLDER'))}_devcontainer"
+    )
     command = f"docker-compose -p {project_name} -f {compose_file} restart {' '.join(services)}"
     print(command)
     context.run(command)

@@ -1,6 +1,6 @@
 # Note: You can use any Debian/Ubuntu based image you want. 
-ARG NAUTOBOT_VER="1.4.2"
-ARG PYTHON_VER=3.8
+ARG NAUTOBOT_VER="1.5.12"
+ARG PYTHON_VER=3.10
 FROM ghcr.io/nautobot/nautobot-dev:${NAUTOBOT_VER}-py${PYTHON_VER}
 
 # [Option] Install zsh

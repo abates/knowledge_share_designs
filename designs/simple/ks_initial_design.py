@@ -2,6 +2,7 @@ from design_builder.base import DesignJob
 
 from .ks_initial_context import KSInitialDesignContext
 
+
 class KSInitialDesign(DesignJob):
     class Meta:
         name = "Initial Data"

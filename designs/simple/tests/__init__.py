@@ -1,8 +1,7 @@
 """Unit tests for designs"""
 
-from nautobot.dcim.models import Region, Site
-
 from design_builder.tests import DesignTestCase
+from nautobot.dcim.models import Region, Site
 
 from ..ks_initial_design import KSInitialDesign
 

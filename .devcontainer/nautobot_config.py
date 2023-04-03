@@ -38,7 +38,8 @@ DATABASES = {
         "PASSWORD": os.getenv("NAUTOBOT_DB_PASSWORD", ""),  # Database password
         "HOST": os.getenv("NAUTOBOT_DB_HOST", "localhost"),  # Database server
         "PORT": os.getenv(
-            "NAUTOBOT_DB_PORT", default_db_settings[nautobot_db_engine]["NAUTOBOT_DB_PORT"]
+            "NAUTOBOT_DB_PORT",
+            default_db_settings[nautobot_db_engine]["NAUTOBOT_DB_PORT"],
         ),  # Database port, default to postgres
         "CONN_MAX_AGE": int(os.getenv("NAUTOBOT_DB_TIMEOUT", 300)),  # Database timeout
         "ENGINE": nautobot_db_engine,
@@ -68,10 +69,6 @@ RQ_QUEUES = {
         "USE_REDIS_CACHE": "default",
     },
 }
-
-# Nautobot uses Cacheops for database query caching. These are the following defaults.
-# For detailed configuration see: https://github.com/Suor/django-cacheops#setup
-CACHEOPS_REDIS = os.getenv("NAUTOBOT_CACHEOPS_REDIS", parse_redis_connection(redis_database=1))
 
 # The django-redis cache is used to establish concurrent locks using Redis. The
 # django-rq settings will use the same instance/database by default.
@@ -131,11 +128,8 @@ BANNER_BOTTOM = os.getenv("NAUTOBOT_BANNER_BOTTOM", "")
 # Text to include on the login page above the login form. HTML is allowed.
 BANNER_LOGIN = os.getenv("NAUTOBOT_BANNER_LOGIN", "")
 
-# Cache timeout in seconds. Cannot be 0. Defaults to 900 (15 minutes). To disable caching, set CACHEOPS_ENABLED to False
-CACHEOPS_DEFAULTS = {"timeout": int(os.getenv("NAUTOBOT_CACHEOPS_TIMEOUT", 900))}
-
 # Set to False to disable caching with cacheops. (Default: True)
-CACHEOPS_ENABLED = is_truthy(os.getenv("NAUTOBOT_CACHEOPS_ENABLED", True))
+CACHEOPS_ENABLED = False
 
 # Maximum number of days to retain logged changes. Set to 0 to retain changes indefinitely. (Default: 90)
 CHANGELOG_RETENTION = int(os.getenv("NAUTOBOT_CHANGELOG_RETENTION", 90))
@@ -293,8 +287,12 @@ PLUGINS_CONFIG = {
 PREFER_IPV4 = is_truthy(os.getenv("NAUTOBOT_PREFER_IPV4", False))
 
 # Rack elevation size defaults, in pixels. For best results, the ratio of width to height should be roughly 10:1.
-RACK_ELEVATION_DEFAULT_UNIT_HEIGHT = int(os.getenv("NAUTOBOT_RACK_ELEVATION_DEFAULT_UNIT_HEIGHT", 22))
-RACK_ELEVATION_DEFAULT_UNIT_WIDTH = int(os.getenv("NAUTOBOT_RACK_ELEVATION_DEFAULT_UNIT_WIDTH", 220))
+RACK_ELEVATION_DEFAULT_UNIT_HEIGHT = int(
+    os.getenv("NAUTOBOT_RACK_ELEVATION_DEFAULT_UNIT_HEIGHT", 22)
+)
+RACK_ELEVATION_DEFAULT_UNIT_WIDTH = int(
+    os.getenv("NAUTOBOT_RACK_ELEVATION_DEFAULT_UNIT_WIDTH", 220)
+)
 
 # Remote auth backend settings
 REMOTE_AUTH_AUTO_CREATE_USER = False
@@ -310,7 +308,9 @@ RELEASE_CHECK_URL = os.getenv("NAUTOBOT_RELEASE_CHECK_URL", None)
 
 # The length of time (in seconds) for which a user will remain logged into the web UI before being prompted to
 # re-authenticate. (Default: 1209600 [14 days])
-SESSION_COOKIE_AGE = int(os.getenv("NAUTOBOT_SESSION_COOKIE_AGE", 1209600))  # 2 weeks, in seconds
+SESSION_COOKIE_AGE = int(
+    os.getenv("NAUTOBOT_SESSION_COOKIE_AGE", 1209600)
+)  # 2 weeks, in seconds
 
 # By default, Nautobot will store session data in the database. Alternatively, a file path can be specified here to use
 # local file storage instead. (This can be useful for enabling authentication on a standby instance with read-only
@@ -339,4 +339,6 @@ EXTRA_INSTALLED_APPS = []
 # Django Debug Toolbar
 TESTING = len(sys.argv) > 1 and sys.argv[1] == "test"
 
-DJANGO_EXTENSIONS_RESET_DB_POSTGRESQL_ENGINES=["django_prometheus.db.backends.postgresql"]
+DJANGO_EXTENSIONS_RESET_DB_POSTGRESQL_ENGINES = [
+    "django_prometheus.db.backends.postgresql"
+]

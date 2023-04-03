@@ -1,8 +1,8 @@
-from design_builder.context import Context, context_file
-
-from os import path
 import csv
 import string
+from os import path
+
+from design_builder.context import Context, context_file
 
 
 def printable(value):

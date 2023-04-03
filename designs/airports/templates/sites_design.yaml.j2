@@ -1,0 +1,5 @@
+---
+sites:
+{% for site in sites %}
+    - {%+ indent %}{{ site | to_yaml }}{% endindent %}
+{% endfor %}

@@ -56,17 +56,21 @@ location_types:
     parent: "!ref:lt-building"
 
 regions:
-    {% for continent in continents.values() %}
+    {% for continent in regions.values() %}
     - "!create_or_update:name": "{{ continent.name }}"
-      "slug": "{{ continent.slug }}"
+      slug: "{{ continent.slug }}"
+      {% if continent.children %}
       children:
-        {% for country in continent.countries.values() %}
+        {% for country in continent.children.values() %}
         - "!create_or_update:name": "{{ country.name }}"
-          "slug": "{{ country.slug }}"
+          slug: "{{ country.slug }}"
+          {% if country.children %}
           children:
-            {% for region in country.regions.values() %}
+          {% for region in country.children.values() %}
             - "!create_or_update:name": "{{ region.name }}"
-              "slug": "{{ region.slug }}"
-            {% endfor %}
+              slug: "{{ region.slug }}"
+          {% endfor %}
+          {% endif %}
         {% endfor %}
+      {% endif %}
     {% endfor %}
